@@ -1,0 +1,33 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  ARM_CLIENT_ID: $(client_id)
+  ARM_CLIENT_SECRET: $(client_secret)
+  ARM_SUBSCRIPTION_ID: $(subscription_id)
+  ARM_TENANT_ID: $(tenant_id)
+
+steps:
+- task: UseTerraform@0
+  inputs:
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+- task: UseTerraform@0
+  inputs:
+    command: 'validate'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+- task: UseTerraform@0
+  inputs:
+    command: 'plan'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+- task: UseTerraform@0
+  inputs:
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    commandOptions: '-auto-approve'
