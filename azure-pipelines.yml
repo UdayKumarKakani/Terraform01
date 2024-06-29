@@ -11,23 +11,24 @@ variables:
   ARM_TENANT_ID: $(tenant_id)
 
 steps:
-- task: UseTerraform@0
+- task: TerraformCLI@2
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
-
-- task: UseTerraform@0
+    allowTelemetryCollection: true
+- task: TerraformCLI@2
   inputs:
     command: 'validate'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
-
-- task: UseTerraform@0
+    allowTelemetryCollection: true
+- task: TerraformCLI@2
   inputs:
     command: 'plan'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
-
-- task: UseTerraform@0
+    allowTelemetryCollection: true
+- task: TerraformCLI@2
   inputs:
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
-    commandOptions: '-auto-approve'
+    allowTelemetryCollection: true
+
