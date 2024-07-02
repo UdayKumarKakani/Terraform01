@@ -22,11 +22,6 @@ stages:
         versionSpec: '3.x'
         addToPath: true
 
-    - script: |
-        python -m pip install --upgrade pip
-        pip install azure-cli
-      displayName: 'Install Azure CLI'
-
     - task: AzureCLI@2
       inputs:
         azureSubscription: 'tf-01'
