@@ -21,7 +21,7 @@ variable "subscription_id" {
 variable "location" {
   type        = string
   description = "The Azure region where the AKS cluster should be created."
-  default     = "westus2"
+  default     = "East US"
 }
 
 variable "cluster_name" {
@@ -39,13 +39,13 @@ variable "dns_prefix" {
 variable "node_count" {
   type        = number
   description = "The number of nodes in the default node pool."
-  default     = 3
+  default     = 2
 }
 
 variable "node_vm_size" {
   type        = string
   description = "The size of the VM for the nodes in the default node pool."
-  default     = "Standard_DS2_v2"
+  default     = "Standard_D2s_v3"
 }
 
 variable "tags" {
