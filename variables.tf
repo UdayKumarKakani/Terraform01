@@ -1,56 +1,57 @@
-variable "subscription_id" {
-  description = "The Subscription ID to deploy resources into"
-  type        = string
-}
-
 variable "client_id" {
-  description = "The Client ID (appId) for the Service Principal"
   type        = string
+  description = "The Client ID (appId) of the service principal."
 }
 
 variable "client_secret" {
-  description = "The Client Secret (password) for the Service Principal"
   type        = string
-  sensitive   = true
+  description = "The Client Secret (password) of the service principal."
 }
 
 variable "tenant_id" {
-  description = "The Tenant ID for the Service Principal"
   type        = string
+  description = "The Tenant ID of the service principal."
 }
 
-variable "resource_group_name" {
-  description = "The name of the resource group"
+variable "subscription_id" {
   type        = string
-  default     = "aks-resource-group"
+  description = "The Subscription ID for Azure."
 }
 
 variable "location" {
-  description = "The location of the resource group"
   type        = string
-  default     = "East US"
+  description = "The Azure region where the AKS cluster should be created."
+  default     = "West Europe"
 }
 
 variable "cluster_name" {
-  description = "The name of the AKS cluster"
   type        = string
+  description = "The name of the AKS cluster."
   default     = "aks-cluster"
 }
 
 variable "dns_prefix" {
-  description = "The DNS prefix for the AKS cluster"
   type        = string
-  default     = "aks"
+  description = "The DNS prefix to use for the AKS cluster."
+  default     = "aksdns"
 }
 
 variable "node_count" {
-  description = "The number of nodes in the default node pool"
   type        = number
-  default     = 1
+  description = "The number of nodes in the default node pool."
+  default     = 3
+}
+
+variable "node_vm_size" {
+  type        = string
+  description = "The size of the VM for the nodes in the default node pool."
+  default     = "Standard_DS2_v2"
 }
 
 variable "tags" {
-  description = "A map of tags to add to all resources"
   type        = map(string)
-  default     = {}
+  description = "Tags to apply to resources."
+  default     = {
+    environment = "Development"
+  }
 }
