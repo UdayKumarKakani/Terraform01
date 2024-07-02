@@ -21,7 +21,7 @@ variable "subscription_id" {
 variable "location" {
   type        = string
   description = "The Azure region where the AKS cluster should be created."
-  default     = "West Europe"
+  default     = "westus2"
 }
 
 variable "cluster_name" {
