@@ -5,29 +5,42 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  ARM_CLIENT_ID: $(client_id)
-  ARM_CLIENT_SECRET: $(client_secret)
-  ARM_SUBSCRIPTION_ID: $(subscription_id)
-  ARM_TENANT_ID: $(tenant_id)
+  ARM_CLIENT_ID: '$(client_id)'
+  ARM_CLIENT_SECRET: '$(client_secret)'
+  ARM_SUBSCRIPTION_ID: '$(subscription_id)'
+  ARM_TENANT_ID: '$(tenant_id)'
 
-steps:
-- task: UseTerraform@0
-  inputs:
-    command: 'validate'
-    workingDirectory: '$(System.DefaultWorkingDirectory)'
+stages:
+- stage: Terraform
+  jobs:
+  - job: Terraform
+    steps:
+    - checkout: self
 
-- task: UseTerraform@0
-  inputs:
-    command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '3.x'
+        addToPath: true
 
-- task: UseTerraform@0
-  inputs:
-    command: 'plan'
-    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    - script: |
+        python -m pip install --upgrade pip
+        pip install azure-cli
+      displayName: 'Install Azure CLI'
 
-- task: UseTerraform@0
-  inputs:
-    command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)'
-    commandOptions: '-auto-approve'
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'tf-01'
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          az account show
+
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: '1.0.11'  # Specify the required version of Terraform
+
+    - script: |
+        terraform init
+        terraform plan -out=tfplan
+        terraform apply -input=false tfplan
+      displayName: 'Terraform Init, Plan, and Apply'
