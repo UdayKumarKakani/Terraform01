@@ -2,10 +2,10 @@
 provider "azurerm" {
   features {}
 
-  subscription_id = var.subscription_id
-  client_id       = var.client_id
-  client_secret   = var.client_secret
-  tenant_id       = var.tenant_id
+  subscription_id = "8dd7289c-422a-4457-8929-0b68291fd6e9"
+  client_id       = "a77789c7-299b-4878-96cc-ef02966ca6ed"
+  client_secret   = "lMH8Q~OK5-00P04NsEZCywbgmJcGBvpEU8DMAbC4"
+  tenant_id       = "0d0be429-3ecd-432d-8d42-a38d53b48d23"
 }
 
 resource "azurerm_resource_group" "aks" {
