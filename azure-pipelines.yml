@@ -24,7 +24,7 @@ stages:
 
     - task: AzureCLI@2
       inputs:
-        azureSubscription: 'tf-01'
+        azureSubscription: 'tf-02'
         scriptType: bash
         scriptLocation: inlineScript
         inlineScript: |
